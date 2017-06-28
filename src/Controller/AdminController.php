@@ -8,6 +8,7 @@ class AdminController extends AppController
 	
 	public function loginAdmin(){
 		//sessionを破棄
+		//
 		//postされていた場合、認証を行う処理を記述。
 		//認証できた場合、sessionに情報を格納。
 		$isPost =$this->request->is('post');
