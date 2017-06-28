@@ -15,5 +15,5 @@
 
 require 'webroot' . DIRECTORY_SEPARATOR . 'index.php';
 */
-print "aaaaaaaaaaa";
+print "これはdevelop";
 ?>
