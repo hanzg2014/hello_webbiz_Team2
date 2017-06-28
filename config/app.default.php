@@ -229,9 +229,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'yuya',
-            'password' => 'ikuno',
-            'database' => 'sample',
+            'username' => 'user',
+            'password' => 'pass',
+            'database' => 'webbiz',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
