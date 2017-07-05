@@ -7,6 +7,7 @@ class UsersController extends AppController
 	public $uses = array('User','Demand','Point','Spot');
 	
 	public function login(){
+		//鬼頭です
 		//sessionを破棄
 		//postされていた場合、認証を行う処理を記述。
 		//認証できた場合、sessionにユーザー情報を格納。
