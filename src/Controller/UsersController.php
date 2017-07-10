@@ -7,9 +7,10 @@ class UsersController extends AppController
 	public $uses = array('User','Demand','Point','Spot');
 	
 	public function login(){
-		//鬼頭です
 		//sessionを破棄
+		session_destroy();
 		//postされていた場合、認証を行う処理を記述。
+        
 		//認証できた場合、sessionにユーザー情報を格納。
 		$isPost =$this->request->is('post');
 		if($isPost)$this->redirect(['controller'=>'Users','action'=>'home']);
@@ -18,7 +19,9 @@ class UsersController extends AppController
 	
 	public function register(){
 		//sessionを破棄
+		session_destroy();
 		//postされていた場合、バリデーションを行う。
+		
 		//さらに同一のユーザーがいないかどうかチェック
 		//以上に引っかからなければ、ユーザー情報をデータベースに格納
 		//sessionにもユーザー情報を格納。
