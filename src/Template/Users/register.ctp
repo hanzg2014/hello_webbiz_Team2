@@ -1,16 +1,22 @@
-<form action="register" method="POST">
-	NAME<input type="text" name="id" size="10" width="10">
-	ID<input type="text" name="id" size="10" width="10">
-	PASSWORD<input type="password" name="pass" size="10">
-	GENDER
-	<input type="radio" name="male" value="male">男性
-	<input type="radio" name="female" value="female">女性<br>
-	AGE<select name="age">
-		<option value="10" label="10" selected>10</option>
-		<option value="20" label="20">20</option>
-	</select>
+<div>
+	<h3>新規登録</h3> 
+	<?= $this->Form->create() ?> 
+	<fieldset> 
+	<?php 
+		echo $this->Form->input('name'); 
+		echo $this->Form->input('username');
+		echo $this->Form->password('password');
+		echo $this->Form->input('age'); 
+	?> 
+		<?=$this->Form->radio('sex',[ 
+	['value'=>'male','text'=>'男','checked'=> true], ['value'=>'female','text'=>'女']
+		]) ?>
+
 		
-	<input type="submit" value="登録">
-</form>
+	</fieldset> 
+	<?= $this->Form->button('登録') ?> 
+	<?= $this->Form->end() ?> 
+</div>
 
 <a href='login'>もどる</a><br>
+

@@ -19,14 +19,17 @@ class UsersController extends AppController
 	
 	public function register(){
 		//sessionを破棄
-		session_destroy();
 		//postされていた場合、バリデーションを行う。
-		
+		if ($this->request->is('post')) { 
+			$user = $this->Users->newEntity(); 
+			$user = $this->Users->patchEntity($user, $this->request->data); 
+			if ($this->Users->save($user)) { 
+				return $this->redirect(['controller'=>'Users','action'=>'home']);
+			}
+		}	
 		//さらに同一のユーザーがいないかどうかチェック
 		//以上に引っかからなければ、ユーザー情報をデータベースに格納
 		//sessionにもユーザー情報を格納。
-		$isPost =$this->request->is('post');
-		if($isPost)$this->redirect(['controller'=>'Users','action'=>'home']);
 	}
 	
 	public function home(){
