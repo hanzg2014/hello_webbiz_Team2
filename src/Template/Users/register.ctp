@@ -1,4 +1,6 @@
-<div>
+<?= $this->Html->css('register.css') ?>
+
+<div id="body">
 	<h3>新規登録</h3> 
 	<?= $this->Form->create() ?> 
 	<fieldset> 
@@ -14,9 +16,9 @@
 
 		
 	</fieldset> 
+	<div id="return"><a href='login'>もどる</a></div>
 	<?= $this->Form->button('登録') ?> 
 	<?= $this->Form->end() ?> 
+	<br>
 </div>
-
-<a href='login'>もどる</a><br>
 
