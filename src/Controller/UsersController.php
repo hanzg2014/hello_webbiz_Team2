@@ -20,6 +20,8 @@ class UsersController extends AppController
 		//sessionを破棄
 		
 		//postされていた場合、認証を行う処理を記述。
+		$user = $this->Users->newEntity(); 
+		$this->set('user',$user);
     	if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -40,8 +42,9 @@ class UsersController extends AppController
 	public function add(){
 		//sessionを破棄
 		//postされていた場合、バリデーションを行う。
+		$user = $this->Users->newEntity(); 
+		$this->set('user', $user);
 		if ($this->request->is('post')) { 
-			$user = $this->Users->newEntity(); 
 			$user = $this->Users->patchEntity($user, $this->request->data); 
 			if ($this->Users->save($user)) { 
 				return $this->redirect(['controller'=>'Users','action'=>'home']);

@@ -2,7 +2,7 @@
 
 <div id="body">
 	<h3>新規登録</h3> 
-	<?= $this->Form->create() ?> 
+	<?= $this->Form->create($user) ?> 
 	<fieldset> 
 	<?php 
 		echo $this->Form->input('name'); 
@@ -22,3 +22,14 @@
 	<br>
 </div>
 
+<<<<<<< HEAD:src/Template/Users/add.ctp
+<a href='login'>もどる</a><br>
+
+
+
+
+
+
+
+=======
+>>>>>>> 82e13273f1fe52b01c363a3ac15bcdfebfa3b3ea:src/Template/Users/register.ctp

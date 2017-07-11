@@ -6,7 +6,7 @@
 	<div id="right">
 		<div id="login">
 			<?= $this->Flash->render() ?>
-			<?= $this->Form->create() ?>
+			<?= $this->Form->create($user) ?>
     			<fieldset>
         			<legend><?= __('Please enter your username and password') ?></legend>
         			<?= $this->Form->control('username') ?>
