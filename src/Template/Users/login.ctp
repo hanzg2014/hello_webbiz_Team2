@@ -1,11 +1,24 @@
-<div class="users form">
-<?= $this->Flash->render() ?>
-<?= $this->Form->create() ?>
-    <fieldset>
-        <legend><?= __('Please enter your username and password') ?></legend>
-        <?= $this->Form->control('username') ?>
-        <?= $this->Form->control('password') ?>
-    </fieldset>
-<?= $this->Form->button(__('Login')); ?>
-<?= $this->Form->end() ?>
-</div>	  
+<?= $this->Html->css('login.css') ?>
+
+<div class="users form", id="body">
+	<div id="left">
+	</div>
+	<div id="right">
+		<div id="login">
+			<?= $this->Flash->render() ?>
+			<?= $this->Form->create() ?>
+    			<fieldset>
+        			<legend><?= __('Please enter your username and password') ?></legend>
+        			<?= $this->Form->control('username') ?>
+        			<?= $this->Form->control('password') ?>
+    			</fieldset>
+			<?= $this->Form->button(__('Login')); ?>
+			<?= $this->Form->end() ?>
+		</div>	
+		<div id="btns">	
+			<a href='register'>登録</a><br>
+			<a href='../Admin/login_admin'>管理者</a>
+		</div>
+	</div>
+
+</div>	
