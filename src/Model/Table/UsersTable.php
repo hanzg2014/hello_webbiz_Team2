@@ -47,19 +47,12 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
 
         $validator
             ->allowEmpty('name');
 
-        $validator
-            ->allowEmpty('username')
-            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->allowEmpty('password');
+        $validator  
+            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);                 
 
         $validator
             ->allowEmpty('sex');
@@ -68,7 +61,11 @@ class UsersTable extends Table
             ->integer('age')
             ->allowEmpty('age');
 
-        return $validator;
+
+        return $validator
+            ->notEmpty('username', 'A username is required')
+            ->notEmpty('password', 'A password is required');
+            
     }
 
     /**
