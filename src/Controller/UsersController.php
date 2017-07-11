@@ -58,10 +58,9 @@ class UsersController extends AppController
 		//sessionに基づきデータベースから必要なユーザー情報・取得ポイント情報を取得
 	}
 	
-	public function achievement($i = 0){
+	public function coupon($i = 0){
 		//session認証を行う
-		//データベースから設置済み場所取得
-		//googleAPI,GeolocationAPIを利用して設置場所表示地図を描画
+		//データベースから該当クーポン情報取得
 	}
 	
 	public function vote(){
@@ -75,6 +74,11 @@ class UsersController extends AppController
 		//その情報をデータベースと照合し認証
 		//認証できない場合、新規ユーザーとしてデータベースに登録
 		//sessionにユーザー情報を格納。
+		$this->redirect(['controller'=>'Users','action'=>'home']);
+	}
+	
+	public function useCoupon($i = 0){
+		//データベースから該当クーポン削除
 		$this->redirect(['controller'=>'Users','action'=>'home']);
 	}
 	
