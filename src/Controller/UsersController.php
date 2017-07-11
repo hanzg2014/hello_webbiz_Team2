@@ -1,23 +1,43 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 class UsersController extends AppController
 {
 	public $uses = array('User','Demand','Point','Spot');
 	
+	public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow();
+    }
+
 	public function login(){
 		//sessionを破棄
-		session_destroy();
+		
 		//postされていた場合、認証を行う処理を記述。
-        
+    	if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+            	$this->Flash->error(__('Invalid username or password, try again'));
+        	}
+    	}
+
+
+
 		//認証できた場合、sessionにユーザー情報を格納。
-		$isPost =$this->request->is('post');
-		if($isPost)$this->redirect(['controller'=>'Users','action'=>'home']);
+		
 		
 	}
 	
-	public function register(){
+	public function add(){
 		//sessionを破棄
 		//postされていた場合、バリデーションを行う。
 		if ($this->request->is('post')) { 
@@ -26,7 +46,9 @@ class UsersController extends AppController
 			if ($this->Users->save($user)) { 
 				return $this->redirect(['controller'=>'Users','action'=>'home']);
 			}
+			$this->Flash->error(__('Unable to add the user.'));
 		}	
+		
 		//さらに同一のユーザーがいないかどうかチェック
 		//以上に引っかからなければ、ユーザー情報をデータベースに格納
 		//sessionにもユーザー情報を格納。
