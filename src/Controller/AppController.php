@@ -44,6 +44,11 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'Users','Admin'
+                ]    
+            ],
             'loginRedirect' => [
                 'controller' => 'Users',
                 'action' => 'home'
@@ -56,6 +61,7 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ]
+            
         ]);
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -66,7 +72,7 @@ class AppController extends Controller
     }
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow('add');
+        $this->Auth->allow(['add','loginAdmin']);
     }
 
     /**
