@@ -16,7 +16,7 @@
 			<?= $this->Form->end() ?>
 		</div>	
 		<div id="btns">	
-			<a href='register'>登録</a><br>
+			<a href='add'>登録</a><br>
 			<a href='../Admin/login_admin'>管理者</a>
 		</div>
 	</div>

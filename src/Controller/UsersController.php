@@ -31,13 +31,13 @@ class UsersController extends AppController
             	$this->Flash->error(__('Invalid username or password, try again'));
         	}
     	}
-
-
+    }
+    public function logout(){
+		$this->Flash->success('ログアウトしました');
+		return $this->redirect($this->Auth->logout());
+	}
 
 		//認証できた場合、sessionにユーザー情報を格納。
-		
-		
-	}
 	
 	public function add(){
 		//sessionを破棄
@@ -47,7 +47,7 @@ class UsersController extends AppController
 		if ($this->request->is('post')) { 
 			$user = $this->Users->patchEntity($user, $this->request->data); 
 			if ($this->Users->save($user)) { 
-				return $this->redirect(['controller'=>'Users','action'=>'home']);
+				return $this->redirect(['controller'=>'Users','action'=>'login']);
 			}
 			$this->Flash->error(__('Unable to add the user.'));
 		}	

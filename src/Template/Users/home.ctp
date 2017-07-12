@@ -4,7 +4,7 @@
 
 	<div id="header">
 		<h2>●●さんのマイページ</h2>
-		<div id="logout"><a href="login">ログアウト</a></div>
+		<div id="logout"><a href="logout">ログアウト</a></div>
 	</div>
 	
 	<div id="left">
