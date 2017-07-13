@@ -3,7 +3,7 @@
 <div id="wrapper">
 
 	<div id="header">
-		<h2>●●さんのマイページ</h2>
+		<h2><?= $name ?>さんのマイページ </h2>
 		<div id="logout"><a href="logout">ログアウト</a></div>
 	</div>
 	

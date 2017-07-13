@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Network\Session\Database;
 
 class UsersController extends AppController
 {
@@ -26,18 +27,21 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+              	$this->Session->write('User.name', $this->Auth->User('name') );
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
             	$this->Flash->error(__('Invalid username or password, try again'));
         	}
     	}
+    	//認証できた場合、sessionにユーザー情報を格納。
     }
     public function logout(){
 		$this->Flash->success('ログアウトしました');
+		$this->Session->destroy();
 		return $this->redirect($this->Auth->logout());
 	}
 
-		//認証できた場合、sessionにユーザー情報を格納。
+		
 	
 	public function add(){
 		//sessionを破棄
@@ -59,6 +63,8 @@ class UsersController extends AppController
 	
 	public function home(){
 		//sessionに基づきデータベースから必要なユーザー情報・取得ポイント情報を取得
+		$name = $this->Session->read('User.name');
+		$this->set('name',$name);
 	}
 	
 	public function coupon($i = 0){
