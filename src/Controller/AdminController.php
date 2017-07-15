@@ -6,13 +6,21 @@ class AdminController extends AppController
 {
 	public $uses = array('User','Demand','Point','Spot');
 	
+
 	public function loginAdmin(){
 		//sessionを破棄
 		//
-		//postされていた場合、認証を行う処理を記述。
+		//postされていた場合、認証を行う処理を記述。 
+    	if ($this->request->is('post')) {
+            if ('admin' == $this->request->data('id') && 'webbiz' == $this->request->data('pass')){
+            	return $this->render('home_admin');
+            } else {
+            	$this->Flash->error(__('Invalid username or password, try again'));
+        	}
+        }	
+
 		//認証できた場合、sessionに情報を格納。
-		$isPost =$this->request->is('post');
-		if($isPost)$this->render('home_admin');
+		
 	}
 	
 	public function homeAdmin($i = 0){

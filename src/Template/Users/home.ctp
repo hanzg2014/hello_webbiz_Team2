@@ -76,8 +76,8 @@ function initMap() {
 <div id="wrapper">
 
 	<div id="header">
-		<h2>●●さんのマイページ</h2>
-		<div id="logout"><a href="login">ログアウト</a></div>
+		<h2><?= $name ?>さんのマイページ </h2>
+		<div id="logout"><a href="logout">ログアウト</a></div>
 	</div>
 	
 	<div id="left">
