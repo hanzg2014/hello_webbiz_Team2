@@ -1,9 +1,9 @@
 body{
-	background-color: #b0c4de;
+	background-color: #87ceeb;
 }
 
-#body{
-	margin-left: 100px;
+#wrapper{
+	margin:auto;
 	margin-top: 30px;
 	margin-bottom:30px;
 	border-radius: 10px;
@@ -21,7 +21,7 @@ fieldset label{
 	float: left;
 }
 
-#body input{
+#wrapper input{
 	float:right;
 	width: 300px;
 }
@@ -33,7 +33,7 @@ h3{
 	font-size: 18px;
 }
 
-#body button{
+#wrapper button{
 	background-color: #778899;;
 	height: 30px;
 	width: 150px;

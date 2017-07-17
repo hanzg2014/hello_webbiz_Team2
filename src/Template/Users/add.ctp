@@ -1,35 +1,37 @@
 <?= $this->Html->css('register.css') ?>
 
-<div id="body">
+<div id="wrapper">
 	<h3>新規登録</h3> 
-	<?= $this->Form->create($user) ?> 
-	<fieldset> 
-	<?php 
-		echo $this->Form->input('name'); 
-		echo $this->Form->input('username');
-		echo $this->Form->password('password');
-		echo $this->Form->input('age'); 
-	?> 
-		<?=$this->Form->radio('sex',[ 
-	['value'=>'male','text'=>'男','checked'=> true], ['value'=>'female','text'=>'女']
-		]) ?>
-
-		
-	</fieldset> 
-	<div id="return"><a href='login'>もどる</a></div>
-	<?= $this->Form->button('登録') ?> 
-	<?= $this->Form->end() ?> 
-	<br>
+	<form method="post" accept-charset="utf-8" action="/webbiz/users/add">
+		<div style="display:none;">
+			<input type="hidden" name="_method" value="POST"/>
+		</div> 
+		<fieldset> 
+			<div class="input text">
+				<label for="name">名前</label>
+				<input type="text" name="name" maxlength="255" id="name"/>
+			</div>
+			<div class="input text required">
+				<label for="username">ログイン名</label>
+				<input type="text" name="username" required="required" maxlength="255" id="username"/>
+			</div>
+			<div class="input text required">
+				<label for="password">パスワード</label>
+				<input type="password" name="password" required="required"/>
+			</div>
+			
+			<div class="input number">
+				<label for="age">年齢</label>
+				<input type="number" name="age" id="age"/>
+			</div> 
+			<input type="hidden" name="sex" value=""/>
+			<label for="sex-male"><input type="radio" name="sex" value="male" checked="checked" id="sex-male">男
+			</label>
+			<label for="sex-female"><input type="radio" name="sex" value="female" id="sex-female">女
+			</label>	
+		</fieldset> 
+	
+		<div id="return"><a href='login'>もどる</a></div>
+		<button type="submit">登録</button> 
+	</form> 
 </div>
-
-<<<<<<< HEAD:src/Template/Users/add.ctp
-<a href='login'>もどる</a><br>
-
-
-
-
-
-
-
-=======
->>>>>>> 82e13273f1fe52b01c363a3ac15bcdfebfa3b3ea:src/Template/Users/register.ctp

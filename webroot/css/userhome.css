@@ -1,11 +1,18 @@
+body{
+	background-color:#f9f9ff;
+}
+
 #wrapper{
-	width: 700px;
+	margin:auto;
+	width: 80%;
 	height: 430px;
-	background-color:#f6f6ff;
+	
 }
 
 #header{
-	height: 18%;
+	background-color: #87ceeb;
+	height: 12%;
+	margin-bottom:4%;
 	padding: 10px;
 }
 
@@ -38,7 +45,6 @@ h3{
 
 #left{
 	clear:left;
-	padding-left:3%;
 	width: 47%;
 	height:80%;
 	float:left;
@@ -87,12 +93,18 @@ h3{
 	height: 35px;
 	margin: 5px;
 	margin-left: 10px;
+	font-size:12px;
 	border-bottom:1px solid #000000;
 }
 
 .newsdate{
 	width: 80px;
+	padding-top:5px;
 	float:left;
+}
+
+.newscontent{
+	padding-top:5px;
 }
 
 #couponbox{

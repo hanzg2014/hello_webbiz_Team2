@@ -3,10 +3,12 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Network\Session\Database;
+use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 class UsersController extends AppController
 {
-	public $uses = array('User','Demand','Point','Spot');
+	public $uses = array('User','Demand','Coupon','Spot');
 	
 	public function beforeFilter(Event $event)
     {
@@ -28,6 +30,7 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
               	$this->Session->write('User.name', $this->Auth->User('name') );
+				$this->Session->write('User.id', $this->Auth->User('id') );
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
             	$this->Flash->error(__('Invalid username or password, try again'));
@@ -65,14 +68,33 @@ class UsersController extends AppController
 		//sessionに基づきデータベースから必要なユーザー情報・取得ポイント情報を取得
 		$name = $this->Session->read('User.name');
 		$this->set('name',$name);
+		$id = $this->Session->read('User.id');
+		$this->set('id',$id);
+		
+		$coupons = TableRegistry::get('Coupons');
+		$coupon = $coupons->find('all');
+		$this->set('coupon',$coupon);
+		$demands = TableRegistry::get('Demands');
+		$demand = $demands->find('all');
+		$this->set('demand',$demand);
+		$spots = TableRegistry::get('Spots');
+		$spot = $spots->find('all');
+		$this->set('spot',$spot);
 	}
 	
 	public function coupon($i = 0){
+		$id = $this->request->query('id');
+		$coupons = TableRegistry::get('Coupons');
+		$coupon = $coupons->find('all')->where(["id=".$id]);
+		$this->set('coupon',$coupon);
 		//session認証を行う
 		//データベースから該当クーポン情報取得
 	}
 	
 	public function vote(){
+		$spots = TableRegistry::get('Spots');
+		$spot = $spots->find('all');
+		$this->set('spot',$spot);
 		//sessionを取得
 		//googleAPI,GeolocationAPIを利用して現在地周辺地図を描画
 		//※地図上にピンを立てられるようにしてください！

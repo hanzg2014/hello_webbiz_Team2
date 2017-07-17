@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 class AdminController extends AppController
 {
@@ -13,7 +14,8 @@ class AdminController extends AppController
 		//postされていた場合、認証を行う処理を記述。 
     	if ($this->request->is('post')) {
             if ('admin' == $this->request->data('id') && 'webbiz' == $this->request->data('pass')){
-            	return $this->render('home_admin');
+            	$this->homeAdmin();
+				$this->render("home_admin");
             } else {
             	$this->Flash->error(__('Invalid username or password, try again'));
         	}
@@ -24,6 +26,12 @@ class AdminController extends AppController
 	}
 	
 	public function homeAdmin($i = 0){
+		$demands = TableRegistry::get('Demands');
+		$demand = $demands->find('all');
+		$this->set('demand',$demand);
+		$spots = TableRegistry::get('Spots');
+		$spot = $spots->find('all');
+		$this->set('spot',$spot);
 		//session認証を行う
 		//データベースから設置済み場所・需要のある場所取得
 		//googleAPIを利用して上記を表す地図を描画

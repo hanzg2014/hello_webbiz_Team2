@@ -1,9 +1,7 @@
-<?= $this->Html->css('vote.css') ?>
+﻿<script>
 
-<script>
 var latnow;
 var lngnow;
-var demand_marker;
 
 function get_position(position){
 	//現在位置取得
@@ -16,74 +14,71 @@ function get_position(position){
 
 	var latlng_m = new google.maps.LatLng(latnow+0.01,lngnow+0.01);
 
-	//HTML上に配置するmapオブジェクト
+	//mapのオプション
 	var opts = {
 		zoom: 14,
 		center: latlng
 	};
+	
+	//HTML上に配置するmapオブジェクト
 	var map = new google.maps.Map(document.getElementById("map"), opts);
 	
-	//imgフォルダからのiconオブジェクト	
-	var bus = new google.maps.MarkerImage('/webbiz/img/bus.png',
-	new google.maps.Size(15,15),
+	//imgフォルダからのiconオブジェクト
+	var star = new google.maps.MarkerImage('/webbiz/img/star.png',
+	new google.maps.Size(100,100),
 	new google.maps.Point(0,0), 
 	new google.maps.Point(10,10)
 	);
-<?php
-	foreach($spot as $data){
-?>	
-	var busOptions = {
-	position: new google.maps.LatLng(<?=$data->latitude?>,<?=$data->longtitude?>),
-	draggable:false,
-	map: map,
-	icon: bus
-	};	
-	var marker = new google.maps.Marker(busOptions);
 	
-	//markerに対応するwindowオブジェクトの生成と配置
+	var bus = new google.maps.MarkerImage('/webbiz/img/bus.png',
+	new google.maps.Size(100,100),
+	new google.maps.Point(0,0), 
+	new google.maps.Point(10,10)
+	);
+	
+	//地図上に配置するmarkerオブジェクトとその配置
+	var starOptions = {
+	position: latlng,
+	draggable:true,
+	map: map,
+	icon: star
+	};	
+	var marker = new google.maps.Marker(starOptions);
+	
+	//地図上に配置するwindowオブジェクトの生成と配置
 	var infowindow = new google.maps.InfoWindow({
-    content: <?="'".$data->name."<br>".$data->start->format("H:i")."'"?>
+    content: 'あいうえお'
   });
 	infowindow.open(map,marker);
-<?php
-	}
-?>
 	
 	//地図上に配置するポリグラフオブジェクトとその配置
 	var path = [
-<?php
-	foreach($spot as $data){
-?>
-		new google.maps.LatLng(<?=$data->latitude?>,<?=$data->longtitude?>),
-<?php
-	}
-?>
+		latlng,
+		latlng_m
 	];
 	var flightPath = new google.maps.Polyline({
 		path: path, 
 		strokeColor: '#000000',
 		strokeOpacity: 1.0,
-		strokeWeight: 2
+		strokeWeight: 4
 	});
 	flightPath.setMap(map);
-
+	
 	//地図上でクリックしたときの関数を指定
 	map.addListener('click', function(e) {
-		if(demand_marker != null)demand_marker.setMap(null);
 		placeMarkerAndPanTo(e.latLng, map);
 	});
 	
 	//デフォルトマーカーを動的生成する関数
 	function placeMarkerAndPanTo(latLngp, map) {
-		demand_marker = new google.maps.Marker({
+		var marker = new google.maps.Marker({
 			position: latLngp,
 			map: map
 		});
 		map.panTo(latLng);
 	}
+//	alert(marker.getPosition());
 }
-
-
 
 function initMap() {
 	
@@ -91,33 +86,4 @@ function initMap() {
 	pos = navigator.geolocation.getCurrentPosition(get_position);
 
 }
-
 </script>
-
-<div id="wrapper">
-
-	<div id="header">
-		<h2>呼び込み</h2>
-		<div id="return">
-			<a href='home'>もどる</a>
-		</div>
-	</div>
-	<div id="left">
-		<div id="map"></div>
-	</div>
-	
-	<div id="right">
-		<div class="submit">
-			<a href='do_vote'>現在位置で<br>送信</a>
-		</div>
-		<div class="submit">
-			<a href='do_vote'>地図上の<br>点で送信</a>
-		</div>
-	</div>
-
-</div>
-
-<script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgGGWLBTesRzqBTSy-60luer-BC0EP4c&callback=initMap">
-</script>
-
