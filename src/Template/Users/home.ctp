@@ -23,11 +23,6 @@ function get_position(position){
 	var map = new google.maps.Map(document.getElementById("map"), opts);
 	
 	//imgフォルダからのiconオブジェクト
-	var star = new google.maps.MarkerImage('/webbiz/img/star.png',
-	new google.maps.Size(15,15),
-	new google.maps.Point(0,0), 
-	new google.maps.Point(10,10)
-	);
 	
 	var bus = new google.maps.MarkerImage('/webbiz/img/bus.png',
 	new google.maps.Size(15,15),
@@ -52,20 +47,7 @@ function get_position(position){
 	infowindow.open(map,marker);
 
 <?php
-	}
-	foreach($demand as $data){
-?>	
-	//地図上に配置するmarkerオブジェクトとその配置
-	var starOptions = {
-	position: new google.maps.LatLng(<?=$data->latitude?>,<?=$data->longtitude?>),
-	draggable:false,
-	map: map,
-	icon: star
-	};	
-	var marker = new google.maps.Marker(starOptions);
-
-<?php
-	}
+}
 ?>	
 	
 	//地図上に配置するポリグラフオブジェクトとその配置
@@ -85,21 +67,7 @@ function get_position(position){
 		strokeWeight: 2
 	});
 	flightPath.setMap(map);
-	
-	//地図上でクリックしたときの関数を指定
-	map.addListener('click', function(e) {
-		placeMarkerAndPanTo(e.latLng, map);
-	});
-	
-	//デフォルトマーカーを動的生成する関数
-	function placeMarkerAndPanTo(latLngp, map) {
-		var marker = new google.maps.Marker({
-			position: latLngp,
-			map: map
-		});
-		map.panTo(latLng);
-	}
-//	alert(marker.getPosition());
+
 }
 
 function initMap() {
@@ -150,7 +118,7 @@ function initMap() {
 ?>
 			<div class="coupon">
 				<div class="coupondate">
-					～<?=$data->date->format('Y/m/d')?>
+					～<?=$data->expiration->format('Y/m/d')?>
 				</div>
 				<div class="couponcontent">
 					<a href=<?="coupon?id=".$data->id?>>全品<?=$data->money?>％割引クーポン</a>

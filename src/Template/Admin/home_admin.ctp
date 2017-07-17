@@ -4,6 +4,8 @@
 var latnow;
 var lngnow;
 var spot_marker;
+var spot_lat;
+var spot_lng;
 
 function get_position(position){
 	//現在位置取得
@@ -99,7 +101,10 @@ function get_position(position){
 			position: latLngp,
 			map: map
 		});
-		map.panTo(latLng);
+		spot_lat = latLngp.lat();
+		spot_lng = latLngp.lng();
+		document.getElementById('newlat').value = spot_lat;
+		document.getElementById('newlng').value = spot_lng;
 	}
 }
 
@@ -129,27 +134,26 @@ function initMap() {
 	<div id="right">
 		<h3>販売場所</h3>
 		<div id="spotbox">
+<?php
+	foreach($spot as $data){
+?>
 			<div class="spot">
-				<div class="spotname">公園</div>
-				<div class="spottime">13:00-14:00</div>
-				<div class="spotdelete"><a href="delete_spot">削除</a></div>
+				<div class="spotname"><?=$data->name?></div>
+				<div class="spottime"><?=$data->start->format("H:i")?>-<?=$data->end->format("H:i")?></div>
+				<div class="spotdelete"><a href=<?="delete_spot?id=".$data->id?>>削除</a></div>
 			</div>
-			<div class="spot">
-				<div class="spotname">公園</div>
-				<div class="spottime">13:00-14:00</div>
-				<div class="spotdelete"><a href="delete_spot">削除</a></div>
-			</div>
-			<div class="spot">
-				<div class="spotname">公園</div>
-				<div class="spottime">13:00-14:00</div>
-				<div class="spotdelete"><a href="delete_spot">削除</a></div>
-			</div>
+<?php
+}
+?>
 		</div>
 		
 		<h3>販売場所を追加</h3>
 
 		<div id="newspot">
 			<form action="create_spot" method="POST">
+				<input id="newlat" type="hidden" name="latitude" value="">
+				<input id="newlng" type="hidden" name="longtitude" value="">
+				<input type="hidden" name="deleted" value="0">
 				<label>名前</label>
 				<input type="text" name="name" size="10" width="10">
 				<label>時間</label>

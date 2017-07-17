@@ -4,12 +4,15 @@
 var latnow;
 var lngnow;
 var demand_marker;
+var demand_lat;
+var demand_lng;
 
 function get_position(position){
 	//現在位置取得
 	latnow = position.coords.latitude;
 	lngnow = position.coords.longitude;
-	//{35.7146605863123,139.76285376781624}
+	document.getElementById('latnow').value = latnow;
+	document.getElementById('lngnow').value = lngnow;
 	
 	//必要な座標を変数に格納
 	var latlng = new google.maps.LatLng(latnow,lngnow);
@@ -79,7 +82,10 @@ function get_position(position){
 			position: latLngp,
 			map: map
 		});
-		map.panTo(latLng);
+		demand_lat = latLngp.lat();
+		demand_lng = latLngp.lng();
+		document.getElementById('demandlat').value = demand_lat;
+		document.getElementById('demandlng').value = demand_lng;
 	}
 }
 
@@ -108,10 +114,20 @@ function initMap() {
 	
 	<div id="right">
 		<div class="submit">
-			<a href='do_vote'>現在位置で<br>送信</a>
+			<form action="do_vote" method="POST">
+				<input type="hidden" name="foreign_id" value="<?=$id?>">
+				<input id="demandlat" type="hidden" name="latitude" value="">
+				<input id="demandlng" type="hidden" name="longtitude" value="">
+				<button type="submit">地図上の<br>点で送信</button>
+			</form>
 		</div>
 		<div class="submit">
-			<a href='do_vote'>地図上の<br>点で送信</a>
+			<form action="do_vote" method="POST">
+				<input type="hidden" name="foreign_id" value="<?=$id?>">
+				<input id="latnow" type="hidden" name="latitude" value="">
+				<input id="lngnow" type="hidden" name="longtitude" value="">
+				<button type="submit">現在位置で<br>送信</button>
+			</form>
 		</div>
 	</div>
 

@@ -78,7 +78,9 @@ class UsersController extends AppController
 		$demand = $demands->find('all');
 		$this->set('demand',$demand);
 		$spots = TableRegistry::get('Spots');
-		$spot = $spots->find('all');
+		$spot = $spots->find()
+			->where(['deleted =' => 0])
+			->order(['start' => 'ASC']);
 		$this->set('spot',$spot);
 	}
 	
@@ -93,27 +95,29 @@ class UsersController extends AppController
 	
 	public function vote(){
 		$spots = TableRegistry::get('Spots');
-		$spot = $spots->find('all');
+		$spot = $spots->find()
+			->where(['deleted =' => 0])
+			->order(['start' => 'ASC']);
 		$this->set('spot',$spot);
+		$id = $this->Session->read('User.id');
+		$this->set('id',$id);
 		//sessionを取得
 		//googleAPI,GeolocationAPIを利用して現在地周辺地図を描画
 		//※地図上にピンを立てられるようにしてください！
 	}
-	
-	public function facebookLogin(){
-		//facebookの認証ページに飛び、情報を取得して戻ってくる
-		//その情報をデータベースと照合し認証
-		//認証できない場合、新規ユーザーとしてデータベースに登録
-		//sessionにユーザー情報を格納。
-		$this->redirect(['controller'=>'Users','action'=>'home']);
-	}
-	
-	public function useCoupon($i = 0){
-		//データベースから該当クーポン削除
-		$this->redirect(['controller'=>'Users','action'=>'home']);
-	}
-	
+		
 	public function doVote($i = 0, $j = 0){
+		$demandsTable = TableRegistry::get('Demands');
+		$demand = $demandsTable->newEntity();
+		echo("<script>alert('".$this->request->query('latitude')."')</script>");
+		if ($this->request->is('post')) { 
+			$demand = $demandsTable->patchEntity($demand, $this->request->data); 
+			if ($demandsTable->save($demand)) { 
+				$this->redirect(['controller'=>'Users','action'=>'home']);
+			}else{
+			$this->Flash->error(__('Unable to add the user.'));
+			}
+		}
 		//投票された位置情報を取得
 		//sessionから取得したユーザー情報を結び付け、データベースに格納
 		//iは現在位置か地図上の点かを判定する変数、jは投票するitemを表す変数
