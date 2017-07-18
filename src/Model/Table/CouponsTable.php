@@ -29,7 +29,13 @@ class CouponsTable extends Table
      * @return void
      */
     public function initialize(array $config)
-    {
+    {   
+        parent::initialize($config);
+        $this->table('coupons');
+        $this->belongsTo('Users',[
+            'foreignKey' => 'foreign_id'
+            ]);
+        
     }
 
     /**
@@ -40,7 +46,7 @@ class CouponsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-            
+            return $validator;
     }
 
     /**
@@ -52,5 +58,6 @@ class CouponsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        return $rules;
     }
 }

@@ -70,9 +70,11 @@ class UsersController extends AppController
 		$this->set('name',$name);
 		$id = $this->Session->read('User.id');
 		$this->set('id',$id);
-		
+
 		$coupons = TableRegistry::get('Coupons');
-		$coupon = $coupons->find('all');
+		$coupon = $coupons->find()
+			->where(['foreign_id' => $id]);
+			
 		$this->set('coupon',$coupon);
 		$demands = TableRegistry::get('Demands');
 		$demand = $demands->find('all');
@@ -106,11 +108,12 @@ class UsersController extends AppController
 		//※地図上にピンを立てられるようにしてください！
 	}
 		
-	public function doVote($i = 0, $j = 0){
+	public function doVote(){
 		$demandsTable = TableRegistry::get('Demands');
 		$demand = $demandsTable->newEntity();
-		echo("<script>alert('".$this->request->query('latitude')."')</script>");
+		
 		if ($this->request->is('post')) { 
+
 			$demand = $demandsTable->patchEntity($demand, $this->request->data); 
 			if ($demandsTable->save($demand)) { 
 				$this->redirect(['controller'=>'Users','action'=>'home']);

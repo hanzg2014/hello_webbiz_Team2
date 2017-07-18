@@ -52,7 +52,7 @@ class AdminController extends AppController
 	public function deleteSpot(){
 		$spotsTable = TableRegistry::get('Spots');
 		$id = $this->request->query('id');
-		echo($id);
+		
 		$spot = $spotsTable->get($id);
 		$spot->deleted = 1;
 		$spotsTable->save($spot);
@@ -74,7 +74,41 @@ class AdminController extends AppController
 			$this->Flash->error(__('Unable to add the user.'));
 		}
 	}
-	
+
+	public function createCoupon(){
+		$spots = TableRegistry::get('Spots');
+		$spot = $spots->find()
+			->where(['deleted =' => 0])
+			->order(['start' => 'ASC']);
+		$demands = TableRegistry::get('Demands');
+		$demand = $demands->find('all');
+		$couponsTable = TableRegistry::get('Coupons');
+		
+		foreach($demand as $data2){
+			foreach($spot as $data){
+				
+				$marginla=(($data->latitude)-($data2->latitude))*30.82*3600;
+				$marginlo=(($data->longtitude)-($data2->longtitude))*25.11*3600;
+				$distance=$marginla*$marginla+$marginlo*$marginlo;
+				$distances=array();
+				$distances[]=$distance;
+			}
+			$coupon= $couponsTable->newEntity();
+			if (min($distances)>9000000){
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>30,'expiration'=>'2017/7/20']); 
+				$couponsTable->save($coupon);	
+			}elseif (min($distances)>1000000){
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>20,'expiration'=>'2017/7/20']); 
+				$couponsTable->save($coupon);	
+			}else{
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>10,'expiration'=>'2017/7/20']); 
+				$couponsTable->save($coupon);
+			}	
+			$distances=array();
+		}
+		$this->Flash->success('ユーザーにクーポンを配布しました');
+		$this->redirect("/admin/home_admin");		
+	}	
 	
 }
 

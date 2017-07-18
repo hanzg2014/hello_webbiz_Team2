@@ -163,6 +163,11 @@ function initMap() {
 				<input type="submit" value="追加">
 			</form>
 		</div>
+		<div id="newspot">
+			<form action="create_coupon" method="POST">
+				<input type="submit" value="クーポン発行">
+			</form>
+		</div>		
 
 	</div>
 </div>

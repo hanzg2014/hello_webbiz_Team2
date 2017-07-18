@@ -99,9 +99,11 @@ function initMap() {
 	foreach($coupon as $data){
 ?>
 			<div class="news">
-				<div class="newsdate">
-					<?=$data->date->format('Y/m/d')?>
-				</div>
+				<?php /*
+			 	<div class="newsdate">
+					<?=$data->created->format('Y/m/d')?>
+				</div> 
+				*/ ?>
 				<div class="newscontent">
 					<?=$data->money?>％割引券がプレゼントされました！
 				</div>
