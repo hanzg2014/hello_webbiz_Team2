@@ -38,17 +38,30 @@ body{
 	background-color: #778899;
 }
 
+#login form{
+	height:100%;
+	width:100%;
+
+}
+
+#login fieldset{
+	height:100%;
+	width:100%;
+	padding-top:4%;
+}
+
 #login_title{	
-	height: 30px;
-	width:95%;
-	padding-top:3px;
+	height: 20%;
+	width:100%;
+	margin:auto;
+	padding-top:4px;
 	text-align: center;
 	color: #ffffff;
 	background-color: #1e90ff;
 }
 
 .login_form{
-	margin-top:5%;
+	margin-top:10px;
 	height:25%;
 }
 
@@ -66,17 +79,17 @@ body{
 .login_form input{
 	float:left;
 	width:75%;
-	height:30px;
+	height:80%;
 	background-color:#ffffff;
 }
 
 #login button{
-	float:left;
-	height: 30px;
-	padding:0px;
-	padding-top:0px;
-	width:95%;
+	height: 20%;
+	width:100%;
+	margin:auto;
+	padding:0px;	
 	background-color: #1e90ff;
+
 }
 
 #btns{
