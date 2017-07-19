@@ -53,8 +53,10 @@ class UsersController extends AppController
 		$this->set('user', $user);
 		if ($this->request->is('post')) { 
 			$user = $this->Users->patchEntity($user, $this->request->data); 
-			if ($this->Users->save($user)) { 
-				return $this->redirect(['controller'=>'Users','action'=>'login']);
+			if ($this->Users->save($user)) {
+				$this->Session->write('User.name', $user->name );
+				$this->Session->write('User.id', $user->id );
+				return $this->redirect(['controller'=>'Users','action'=>'home']);
 			}
 			$this->Flash->error(__('Unable to add the user.'));
 		}	
@@ -70,15 +72,25 @@ class UsersController extends AppController
 		$this->set('name',$name);
 		$id = $this->Session->read('User.id');
 		$this->set('id',$id);
+		$voted_lat = $this->Session->read('voted_lat');
+		$this->set('voted_lat',$voted_lat);
+		$voted_lng = $this->Session->read('voted_lng');
+		$this->set('voted_lng',$voted_lng);
 
 		$coupons = TableRegistry::get('Coupons');
 		$coupon = $coupons->find()
 			->where(['foreign_id' => $id]);
-			
 		$this->set('coupon',$coupon);
+		
+		$users = TableRegistry::get('Users');
+		$user = $users->find()
+			->where(['id' => $id])->first();
+		$this->set('user',$user);
+			
+		
 		$demands = TableRegistry::get('Demands');
-		$demand = $demands->find('all');
-		$this->set('demand',$demand);
+		$demand_count = $demands->find()->where(['foreign_id' => $id, 'date' => date("Y-m-d 00:00:00")])->count();
+		$this->set('demand_count',$demand_count);
 		$spots = TableRegistry::get('Spots');
 		$spot = $spots->find()
 			->where(['deleted =' => 0])
@@ -115,7 +127,9 @@ class UsersController extends AppController
 		if ($this->request->is('post')) { 
 
 			$demand = $demandsTable->patchEntity($demand, $this->request->data); 
-			if ($demandsTable->save($demand)) { 
+			if ($demandsTable->save($demand)) {
+				$this->Session->write('voted_lat', $demand->latitude);
+				$this->Session->write('voted_lng', $demand->longtitude);
 				$this->redirect(['controller'=>'Users','action'=>'home']);
 			}else{
 			$this->Flash->error(__('Unable to add the user.'));

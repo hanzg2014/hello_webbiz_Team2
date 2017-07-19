@@ -128,7 +128,9 @@ function initMap() {
 	
 	<div id="left">
 		<h3>販売ルート</h3>
-		<div id="map"></div>
+		<div id="map">
+			<div id="inner">位置情報を<br>取得中です</div>
+		</div>
 	</div>
 	
 	<div id="right">
@@ -153,6 +155,7 @@ function initMap() {
 			<form action="create_spot" method="POST">
 				<input id="newlat" type="hidden" name="latitude" value="">
 				<input id="newlng" type="hidden" name="longtitude" value="">
+				<input type="hidden" name="date" value="<?=date("Y/m/d")?>">
 				<input type="hidden" name="deleted" value="0">
 				<label>名前</label>
 				<input type="text" name="name" size="10" width="10">
@@ -165,6 +168,8 @@ function initMap() {
 		</div>
 		<div id="newspot">
 			<form action="create_coupon" method="POST">
+				<input type="hidden" name="date" value="<?=date("Y/m/d")?>">
+				<input type="hidden" name="expiration" value="<?=date("Y/m/d",strtotime('+1 day', time()))?>">
 				<input type="submit" value="クーポン発行">
 			</form>
 		</div>		

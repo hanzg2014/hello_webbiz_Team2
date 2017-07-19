@@ -29,6 +29,31 @@ function get_position(position){
 	new google.maps.Point(0,0), 
 	new google.maps.Point(10,10)
 	);
+	
+	var star = new google.maps.MarkerImage('/webbiz/img/star.png',
+	new google.maps.Size(15,15),
+	new google.maps.Point(0,0), 
+	new google.maps.Point(10,10)
+	);
+	
+<?php
+	if($voted_lat !=null){
+?>
+	var starOptions = {
+	position: new google.maps.LatLng(<?=$voted_lat?>,<?=$voted_lng?>),
+	draggable:false,
+	map: map,
+	icon: star
+	};	
+	var marker = new google.maps.Marker(starOptions);
+	//markerに対応するwindowオブジェクトの生成と配置
+	var infowindow = new google.maps.InfoWindow({
+    content: "投票しました！"
+  });
+	infowindow.open(map,marker);
+<?php
+	};
+?>
 <?php
 	foreach($spot as $data){
 ?>	
@@ -88,8 +113,18 @@ function initMap() {
 	
 	<div id="left">
 		<h3>販売ルート</h3>
-		<div id="map"></div>
+		<div id="map"><div id="inner">位置情報を<br>取得中です</div></div>
+<?php
+	if($demand_count == 0){
+?>
 		<div id="vote"><a href="vote">来てほしい！</a></div>
+<?php
+	}else{
+?>
+		<div id="vote">送信済み</div>
+<?php
+	}
+?>
 	</div>
 	
 	<div id="right">
@@ -99,24 +134,45 @@ function initMap() {
 	foreach($coupon as $data){
 ?>
 			<div class="news">
-				<?php /*
+				
 			 	<div class="newsdate">
-					<?=$data->created->format('Y/m/d')?>
-				</div> 
-				*/ ?>
+					<?=$data->date->format("Y/m/d")?>
+				</div>
+				
 				<div class="newscontent">
 					<?=$data->money?>％割引券がプレゼントされました！
+				</div>
+			</div>
+			
+			<div class="news">
+				
+			 	<div class="newsdate">
+					<?=$data->date->format("Y/m/d")?>
+				</div>
+				
+				<div class="newscontent">
+					明日の販売ルートが更新されました！
 				</div>
 			</div>
 <?php
 }
 ?>
+			<div class="news"> 
+			 	<div class="newsdate">
+					<?=$user->created->format('Y/m/d')?>
+				</div> 
+				<div class="newscontent">
+					<?=$name?>さんのマイページができました！
+				</div>
+			</div>
 		</div>
 		
 		<h3>COUPON</h3>
 		<div id="couponbox">
 <?php
+	$i = 0;
 	foreach($coupon as $data){
+			$i++;
 ?>
 			<div class="coupon">
 				<div class="coupondate">
@@ -125,6 +181,16 @@ function initMap() {
 				<div class="couponcontent">
 					<a href=<?="coupon?id=".$data->id?>>全品<?=$data->money?>％割引クーポン</a>
 				</div>
+			</div>
+<?php
+	}
+	if($i == 0){
+?>
+			<div class="coupon">
+					利用可能なクーポンはありません．
+			</div>
+			<div class="coupon">
+					投票して，毎日クーポンを貰いましょう！
 			</div>
 <?php
 }

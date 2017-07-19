@@ -94,14 +94,16 @@ class AdminController extends AppController
 				$distances[]=$distance;
 			}
 			$coupon= $couponsTable->newEntity();
+			$coupon = $couponsTable->patchEntity($coupon, $this->request->data);
+			$couponsTable->save($coupon);
 			if (min($distances)>9000000){
-				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>30,'expiration'=>'2017/7/20']); 
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>30]); 
 				$couponsTable->save($coupon);	
 			}elseif (min($distances)>1000000){
-				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>20,'expiration'=>'2017/7/20']); 
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>20]); 
 				$couponsTable->save($coupon);	
 			}else{
-				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>10,'expiration'=>'2017/7/20']); 
+				$coupon =$couponsTable->patchEntity($coupon, ['foreign_id'=>$data2->foreign_id,'money'=>10]); 
 				$couponsTable->save($coupon);
 			}	
 			$distances=array();

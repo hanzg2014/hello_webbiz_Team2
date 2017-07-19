@@ -109,12 +109,15 @@ function initMap() {
 		</div>
 	</div>
 	<div id="left">
-		<div id="map"></div>
+		<div id="map">
+			<div id="inner">位置情報を<br>取得中です</div>
+		</div>
 	</div>
 	
 	<div id="right">
 		<div class="submit">
 			<form action="do_vote" method="POST">
+				<input type="hidden" name="date" value="<?=date("Y/m/d")?>">
 				<input type="hidden" name="foreign_id" value="<?=$id?>">
 				<input id="demandlat" type="hidden" name="latitude" value="">
 				<input id="demandlng" type="hidden" name="longtitude" value="">
@@ -123,6 +126,7 @@ function initMap() {
 		</div>
 		<div class="submit">
 			<form action="do_vote" method="POST">
+				<input type="hidden" name="date" value="<?=date("Y/m/d")?>">
 				<input type="hidden" name="foreign_id" value="<?=$id?>">
 				<input id="latnow" type="hidden" name="latitude" value="">
 				<input id="lngnow" type="hidden" name="longtitude" value="">

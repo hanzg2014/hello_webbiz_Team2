@@ -43,6 +43,17 @@ h2{
 	background-color: #ffffff;
 }
 
+#inner{
+	width:100%;
+	height:100%;
+	font-size:40px;
+	font-weight:700;
+	padding-top:20%;
+	text-align:center;
+	color: #aaaaaa;
+	background-color: #eeeeee;
+}
+
 #left{
 	width: 72%;
 	height:100%;

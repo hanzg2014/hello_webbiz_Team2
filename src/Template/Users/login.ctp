@@ -2,7 +2,12 @@
 
 <div class="users form", id="wrapper">
 	<div id="left">
-	<img src="/webbiz/img/login04.png" width="80px"/>
+		<div id="logo">
+			ここに商品名？
+		</div>
+	<img id="yaoya_bg" src="/webbiz/img/yaoya_bg.jpg" width="34.8%" height="80%"/>
+	<img id="yaoya" src="/webbiz/img/yaoya.png" width="180px"/>
+	<img id="tire_left" src="/webbiz/img/login04.png" width="80px"/>
 	</div>
 	<div id="right">
 		<div id="login">
