@@ -163,14 +163,13 @@ function initMap() {
 				<input class="newtime" type="text" name="start" size="10">
 				<div id="kara">～</div>
 				<input class="newtime"} type="text" name="end" size="10">
-				<input type="submit" value="追加">
+				<input class="submitbutton" type="submit" value="追加">
 			</form>
-		</div>
-		<div id="newspot">
+			
 			<form action="create_coupon" method="POST">
 				<input type="hidden" name="date" value="<?=date("Y/m/d")?>">
 				<input type="hidden" name="expiration" value="<?=date("Y/m/d",strtotime('+1 day', time()))?>">
-				<input type="submit" value="クーポン発行">
+				<input class="submitbutton" type="submit" value="クーポン発行">
 			</form>
 		</div>		
 

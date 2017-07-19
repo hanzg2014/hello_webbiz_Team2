@@ -35,25 +35,7 @@ function get_position(position){
 	new google.maps.Point(0,0), 
 	new google.maps.Point(10,10)
 	);
-	
-<?php
-	if($voted_lat !=null){
-?>
-	var starOptions = {
-	position: new google.maps.LatLng(<?=$voted_lat?>,<?=$voted_lng?>),
-	draggable:false,
-	map: map,
-	icon: star
-	};	
-	var marker = new google.maps.Marker(starOptions);
-	//markerに対応するwindowオブジェクトの生成と配置
-	var infowindow = new google.maps.InfoWindow({
-    content: "投票しました！"
-  });
-	infowindow.open(map,marker);
-<?php
-	};
-?>
+
 <?php
 	foreach($spot as $data){
 ?>	
@@ -92,6 +74,25 @@ function get_position(position){
 		strokeWeight: 2
 	});
 	flightPath.setMap(map);
+	
+<?php
+	if($voted_lat !=null){
+?>
+	var starOptions = {
+	position: new google.maps.LatLng(<?=$voted_lat?>,<?=$voted_lng?>),
+	draggable:false,
+	map: map,
+	icon: star
+	};	
+	var marker = new google.maps.Marker(starOptions);
+	//markerに対応するwindowオブジェクトの生成と配置
+	var infowindow = new google.maps.InfoWindow({
+    content: "投票しました！"
+  });
+	infowindow.open(map,marker);
+<?php
+	};
+?>
 
 }
 

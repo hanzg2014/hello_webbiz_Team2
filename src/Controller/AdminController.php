@@ -73,6 +73,7 @@ class AdminController extends AppController
 			}
 			$this->Flash->error(__('Unable to add the user.'));
 		}
+		$this->redirect("/admin/home_admin");
 	}
 
 	public function createCoupon(){

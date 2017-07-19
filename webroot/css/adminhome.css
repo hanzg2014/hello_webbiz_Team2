@@ -123,6 +123,11 @@ h3{
 	width: 85px;
 }
 
+#newspot input.submitbutton{
+	float: left;
+	width: 40%;
+}
+
 #kara{
 	float: left;
 }
