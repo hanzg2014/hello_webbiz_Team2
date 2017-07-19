@@ -73,13 +73,13 @@ body{
 }
 
 #login_title{	
-	height: 20%;
+	height: 10%;
 	width:100%;
 	margin:auto;
 	padding-top:4px;
 	text-align: center;
 	color: #ffffff;
-	background-color: #1e90ff;
+
 }
 
 .login_form{
